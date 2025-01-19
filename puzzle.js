@@ -1,136 +1,135 @@
 // Snippets de código para poder componer el programa
 
-//Usado?: 
-  const middlewares = require('./middlewares');
-//--- Explicación: 
+//Usado?: Yes
+const middlewares = require("./middlewares");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'middlewares' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const bodyParser = require('body-parser');
-//--- Explicación:
+//Usado?: Yes
+const bodyParser = require("body-parser");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'body-parser' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const session = require('express-session');
-//--- Explicación:
+//Usado?: Yes
+const session = require("express-session");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'express-session' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const express = require('express');
-//--- Explicación:
+//Usado?: Yes
+const express = require("express");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'express' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const bodyParser = require('body-parser');
-//--- Explicación:
+//Usado?: Yes
+const bodyParser = require("body-parser");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'body-parser' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const session = require('express-session');
-//--- Explicación:
+//Usado?: Yes
+const session = require("express-session");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'express-session' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const dotenv = require('dotenv');
-//--- Explicación:
+//Usado?: Yes
+const dotenv = require("dotenv");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'dotenv' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const middlewares = require('./middlewares');
-//--- Explicación:
+//Usado?: yes
+const middlewares = require("./middlewares");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'middlewares' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const routes = require('./routes');
-//--- Explicación:
+//Usado?: Yes
+const routes = require("./routes");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'routes' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
+//Usado?: Yes
 dotenv.config();
-//--- Explicación:
+//--- Explicación: dotenv cargará automáticamente las variables de entorno definidas en el archivo . env en el objeto process
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
+//Usado?: Yes
 const app = express();
-//--- Explicación:
+//--- Explicación: asociar app a la funcion express
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
+//Usado?: Yes
 const PORT = 4000;
-//--- Explicación:
+//--- Explicación: definir que el puerto usado sera 4000
 
 // -------------------------------------------------------------------------------------
 
-//Usado?: 
-const dotenv = require('dotenv');
-//--- Explicación:
+//Usado?: yes
+const dotenv = require("dotenv");
+//--- Explicación:Almaceno en una variable lo que hay dentro del archivo 'dotenv' par apoder usarlo.
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 dotenv.config();
-//--- Explicación:
+//--- Explicación:dotenv cargará automáticamente las variables de entorno definidas en el archivo . env en el objeto process
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 middlewares.setupApp(app);
-//--- Explicación: 
+//--- Explicación: solicita la funcion setupApp dentro de middlewares
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?:Yes
 routes.setup(app);
-//--- Explicación: 
+//--- Explicación: solicita la funcion setup dentro de routes
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 const validarPalabraMiddleware = (req, res, next) => {
-  const palabraCorrecta = process.env.PALABRA_SECRETA || '';
+  const palabraCorrecta = process.env.PALABRA_SECRETA || "";
 
   if (req.body.palabra === palabraCorrecta) {
     req.session.palabraSecreta = req.body.palabra;
     next();
   } else {
-    res.redirect('/?error=1');
+    res.redirect("/?error=1");
   }
 };
-//--- Explicación: 
-
+//--- Explicación: middleware => compara la palabra entrada con la palabra secreta
 
 // -------------------------------------------------------------------------------------
 
-
-//Usado?:
+//Usado?:Yes
 const setup = (app) => {
-  app.get('/', (req, res) => {
+  app.get("/", (req, res) => {
     const mensajeError = req.query.error
-      ? (req.query.error === '1' ? 'Palabra incorrecta, inténtalo de nuevo.' : 'No estás logado.')
-      : '';
+      ? req.query.error === "1"
+        ? "Palabra incorrecta, inténtalo de nuevo."
+        : "No estás logado."
+      : "";
     if (req.session.palabraSecreta) {
-      return res.redirect('/profile');
+      return res.redirect("/profile");
     }
-  //Aquí va código dentro
-})}
-//--- Explicación: 
-
+    //Aquí va código dentro
+  });
+};
+//--- Explicación: mensaje de error en caso de palabra incorrecta
 
 // -------------------------------------------------------------------------------------
 
-
-//Usado?:
+//Usado?: yes
 res.send(`
   <html>
     <body>
@@ -144,23 +143,25 @@ res.send(`
     </body>
   </html>
 `);
-//--- Explicación: 
-
+//--- Explicación: html con el mensaje de error, y solicitud de palabra secreta
 
 // -------------------------------------------------------------------------------------
-
+//Usado?: Yes
 
 const setupAPP = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(session({
-    secret: 'secretoSuperSecreto',
-    resave: false,
-    saveUninitialized: true,
-  }));
+  app.use(
+    session({
+      secret: "secretoSuperSecreto",
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
 };
+//--- Explicación: encapsula los datos de la sesion
 
-//Usado?:
-app.post('/profile', middlewares.validarPalabraMiddleware, (req, res) => {
+//Usado?: Yes
+app.post("/profile", middlewares.validarPalabraMiddleware, (req, res) => {
   res.send(`
     <h1>Ruta del Perfil</h1>
     <form method="post" action="/logout">
@@ -168,51 +169,52 @@ app.post('/profile', middlewares.validarPalabraMiddleware, (req, res) => {
     </form>
   `);
 });
-//--- Explicación: 
+//--- Explicación: ruta final si la palabra es correcta
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?:Yes
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//--- Explicación: 
+//--- Explicación: encapsulacion de los datos de la pagina web
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
-app.use(session({
-  secret: process.env.PALABRA_SECRETA || 'secretoSuperSecreto',
-  resave: false,
-  saveUninitialized: true,
-}));
+//Usado?:Yes
+app.use(
+  session({
+    secret: process.env.PALABRA_SECRETA || "secretoSuperSecreto",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-//--- Explicación: 
+//--- Explicación: datos de la sesion
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 app.listen(PORT, () => {
   console.log(`Servidor en ejecución en http://localhost:${PORT}`);
 });
-//--- Explicación: 
+//--- Explicación: servidor escuchando con information logeada
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 const verificarSesionMiddleware = (req, res, next) => {
   if (req.session.palabraSecreta) {
     next();
   } else {
-    res.redirect('/?error=2');
+    res.redirect("/?error=2");
   }
 };
-//--- Explicación: 
+//--- Explicación:middleware para verificar la palabra clave
 
 // -------------------------------------------------------------------------------------
 
-
-//Usado?:
-app.get('/profile', middlewares.verificarSesionMiddleware, (req, res) => {
+//Usado?:yes
+app.get("/profile", middlewares.verificarSesionMiddleware, (req, res) => {
   res.send(`
     <h1>Ruta del Perfil (Sesión activa)</h1>
     <form method="post" action="/logout">
@@ -220,39 +222,37 @@ app.get('/profile', middlewares.verificarSesionMiddleware, (req, res) => {
     </form>
   `);
 });
-//--- Explicación: 
+//--- Explicación: ruta hacia profile si la palabra es correcta
 
 // -------------------------------------------------------------------------------------
 
-
-//Usado?:
-app.post('/logout', (req, res) => {
+//Usado?:Yes
+app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error('Error al cerrar sesión:', err);
+      console.error("Error al cerrar sesión:", err);
     }
-    res.redirect('/');
+    res.redirect("/");
   });
 });
-//--- Explicación: 
+//--- Explicación: ruta hacia logout si la palabra es incorrecta
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 module.exports = {
   setup,
 };
-//--- Explicación:
+//--- Explicación:modulo export de setup
 
 // -------------------------------------------------------------------------------------
 
-//Usado?:
+//Usado?: Yes
 module.exports = {
   validarPalabraMiddleware,
   verificarSesionMiddleware,
   setupAPP,
 };
-//--- Explicación:
+//--- Explicación: modulo export por las funciones dentro
 
 // -------------------------------------------------------------------------------------
-
